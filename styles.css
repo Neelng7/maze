@@ -1,0 +1,14 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    color: white;
+}
+main{
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.hide{
+    display: none;
+}

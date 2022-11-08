@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: black;
+}
+#maze-canvas{
+    background-color: rgb(0, 0, 0);
+    width: calc(100vmin - 5px);
+    height: calc(100vmin - 6px);
+    display: grid;
+    grid-template-rows: repeat(21, 1fr);
+    grid-template-columns: repeat(21, 1fr);
+    border: 2px solid white;
+}
+
+.runner{
+    background-color: rgb(255, 255, 0);
+    border: .25vmin solid black;
+}
+
+.wall{
+    background-color: rgb(0, 8, 255);
+    border: .25vmin solid black;
+}
