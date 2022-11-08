@@ -8,7 +8,6 @@ export function generateWalls(mazeCanvas){
         var randX = Math.ceil(Math.random()*21), randY = Math.ceil(Math.random()*21);
         const wall = document.createElement('div');
         if(randX == 1 && randY == 1){
-            console.log("stopped");
             randX = Math.ceil(1 + Math.random()*20);
             randY = Math.ceil(1 + Math.random()*20);
         }

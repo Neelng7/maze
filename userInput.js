@@ -1,3 +1,5 @@
+import { teleportUser } from "./runner.js";
+
 const audio = document.getElementById("gameplayAudio");
 const volumeBtn = document.getElementById("volume-btn");
 var inputDirection = { x: 0, y: 0 }
@@ -25,14 +27,20 @@ window.addEventListener('keydown', key => {
         case "D":
             inputDirection = { x: 1, y: 0 }
             break;
+        case " ":
+            teleportUser();
+            break;
         case "m":
         case "M":
             var iconClass = volumeBtn.children[0].classList    
             iconClass.toggle("fa-volume-high", false);
             iconClass.toggle("fa-volume-xmark", true);
             audio.pause();
+            break;
+        case "Escape":
+            window.location.href = '/';
+            break;
         default:
-            // inputDirection = { x: 0, y: 0 }
             reset = false
             break;  
     }

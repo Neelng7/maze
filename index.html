@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maze Chase</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>     
-    <link rel="stylesheet" href="game.css">
-    <!-- <script src="script.js" defer></script> -->
+    <title>Maze Chaser - Home</title>
+    <script src="script.js" defer></script>
     <link class="link" rel="icon" href="./media/blackLogo.png" type="image/icon type">
-    <script src="compute.js" defer type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link href="//db.onlinewebfonts.com/c/4c19fc875e7ba1e6831129de3ab5ac0b?family=Retro+Gaming" rel="stylesheet" type="text/css"/> 
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <audio loop src="./media/gameplay.mp3" class='audio' id="gameplayAudio"></audio>
-    <audio src="./media/caught.wav" class='audio' id="caught-one-audio"></audio>
-    <audio src="./media/caughtAll.wav" class='audio' id="caught-all-audio"></audio>
     <button id="volume-btn"><i class="fa-solid fa-volume-xmark"></i></button>
-    <div id="maze-canvas"></div>
+    <audio loop src="./media/main-menu.mp3" id="main-menu-audio"></audio>
+    <main class="home">
+        <h1 class="maze-h1">MAZE CHASER</h1>
+        <label for="user-name">Your Name: </label><br>
+        <input type="text" class="inp-black" id="user-name" placeholder="name"><br>
+        <label for="gamemode-select" >Game Mode: </label><br>
+        <select id="gamemode-select" class="inp-black">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select><br>
+        <button id="play-game" class="inp-black">Play</button>
+    </main>
 </body>
 </html>

@@ -1,9 +1,9 @@
-import { updateRunner, drawRunner, runnerSpeed, generatenpc, updateNpc, drawNpc } from './runner.js'
+import { updateRunner, drawRunner, runnerSpeed, generatenpc, modes } from './runner.js'
 import { generateWalls } from './walls.js'
 
 let lastRender = 0
 const mazeCanvas = document.getElementById("maze-canvas");
-const audio = document.getElementById("gameplayAudio");
+export const audio = document.getElementById("gameplayAudio");
 const volumeBtn = document.getElementById("volume-btn");
 generateWalls(mazeCanvas);
 
@@ -26,5 +26,6 @@ function volumeToggle(){
     else audio.play();
 }
 
-for(let i=1; i<6; i++) generatenpc(i);
+var NPCnumbers = [5, 7, 9];
+for(let i=1; i<NPCnumbers[modes]+1; i++) generatenpc(i);
 window.requestAnimationFrame(main);

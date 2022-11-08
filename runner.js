@@ -1,14 +1,39 @@
 import { getInputDirection, collided } from "./userInput.js";
 import { wallPositions } from './walls.js'
+import { audio } from './compute.js'
 
-export const runnerSpeed = 10
+let gameMode = sessionStorage.getItem("gameMode")
+if(gameMode == null) window.location.href = "/";
+export var modes = ['Easy', 'Medium', 'Hard'].indexOf(gameMode);
+var runnerSpeeds = [7, 10, 13];
+export const runnerSpeed = runnerSpeeds[modes];
 const mazeCanvas = document.getElementById("maze-canvas");
 const caughtOneAudio = document.getElementById("caught-one-audio");
 const caughtAllAudio = document.getElementById("caught-all-audio");
 const runnerPos = {x: 1, y: 1}
 const lastPos = {x: 1, y: 1}
 const AllNpcPos = [];
-var rows = 21, columns = 21, deleteNpc = false, gameOver = false;
+var rows = 21, columns = 21;
+var deleteNpc = false, gameOver = false, deleteUser = false;
+const gameoverDialog = document.getElementById("gameover-dialog");
+const timeSpan = document.querySelector("span.time");
+gameoverDialog.close();
+
+//Stopwatch
+const StopwatchElm = document.querySelector(".stopwatch");
+var StopwatchMin = 0, StopwatchSec = 0, StopwatchMiliSec = 0;
+var StopWatchcount = 0, StopWatchDisplay, winTimes = [];
+const stopWatchInterval = setInterval(() => { 
+    StopWatchcount += 5;
+    StopwatchMiliSec = StopWatchcount%100;
+    StopwatchSec = ((StopWatchcount - StopwatchMiliSec)/100)%60;
+    StopwatchMin = ((StopWatchcount - StopwatchSec*100 - StopwatchMiliSec)/6000);
+    StopwatchMiliSec = StopwatchMiliSec<10 ? "0"+StopwatchMiliSec : StopwatchMiliSec;
+    StopwatchSec = StopwatchSec<10 ? "0"+StopwatchSec : StopwatchSec;
+    StopwatchMin = StopwatchMin<10 ? "0"+StopwatchMin : StopwatchMin;
+    StopWatchDisplay = `${StopwatchMin}:${StopwatchSec}:${StopwatchMiliSec}`;
+    StopwatchElm.textContent = StopWatchDisplay;
+}, 50)
 
 export function updateRunner(){
     lastPos.x = runnerPos.x;
@@ -22,6 +47,16 @@ export function updateRunner(){
         gameOver = true;
         console.log("Game Over");
         caughtAllAudio.play();
+        winTimes[0] = {min: StopwatchMin, sec: StopwatchSec, miliSec: StopwatchMiliSec};
+        console.log(winTimes);
+        // StopwatchMin = 0, StopwatchSec = 0, StopwatchMiliSec = 0, StopWatchcount = 0;
+        clearInterval(stopWatchInterval);
+        clearInterval(npcTimer);
+        collided();
+        audio.pause();
+        gameoverDialog.showModal();
+        gameoverDialog.classList.toggle("hide", false);
+        timeSpan.textContent = StopWatchDisplay;
     }
 
     if(runnerPos.x < 0 || runnerPos.y < 0 || runnerPos.x > rows || runnerPos.y > columns){
@@ -60,9 +95,36 @@ export function drawRunner(){
     mazeCanvas.appendChild(runnerElm)
 }
 
+const teleportAudio = document.getElementById("teleport-audio");
+
+//Teleport User to Random place
+export function teleportUser(){
+    deleteUser = false;
+    var randX = Math.floor(Math.random()*21), randY = Math.floor(Math.random()*21);
+    let runner = document.querySelector(".runner");
+    if(runner) runner.remove();
+    wallPositions.forEach(wall => {
+        if(randX == wall.x && randY == wall.y){
+            teleportUser();
+            deleteUser = true;
+        }
+    })
+    if(!deleteUser){
+        const runnerElm = document.createElement('div');
+        runnerPos.x = randX;
+        runnerPos.y = randY;
+        runnerElm.style.gridRowStart = runnerPos.x
+        runnerElm.style.gridColumnStart = runnerPos.y
+        runnerElm.classList.add("runner");
+        mazeCanvas.appendChild(runnerElm)
+        teleportAudio.play();
+    }
+}
+
+
 export function generatenpc(index){
     deleteNpc = false;
-    var randX = Math.floor(Math.random()*21), randY = Math.floor(Math.random()*21);
+    var randX = Math.floor(1+Math.random()*20), randY = Math.floor(1+Math.random()*20);
     wallPositions.forEach(wall => {
         if(randX == wall.x && randY == wall.y){
             generatenpc(index);
@@ -70,6 +132,7 @@ export function generatenpc(index){
         }
     })
     if(!deleteNpc){
+        if(document.querySelectorAll(`.npc-${index}`).length > 0) return;
         const npc = document.createElement('div');
         npc.style.gridRowStart = randX;
         npc.style.gridColumnStart = randY;
@@ -80,6 +143,18 @@ export function generatenpc(index){
     }
 }
 
+//Teleport NPCs to random positions every 15sec
+var npcTeleportIntervalsArray = [11, 9, 7];
+var npcTeleportInterval = npcTeleportIntervalsArray[modes];
+let npcTimer = setInterval(teleportNpc, npcTeleportInterval*1000);
+function teleportNpc(){
+    const NPCElms = document.querySelectorAll(".npc");
+    NPCElms.forEach(e => e.remove());
+    for(let i=1; i<NPCElms.length+1; i++) generatenpc(i);
+    teleportAudio.play();
+}
+
+//Randomly Move Npcs Around
 export function updateNpc(){
     const NPCElms = document.querySelectorAll(".npc");
     NPCElms.forEach(e => {
@@ -110,7 +185,6 @@ export function updateNpc(){
         }
         
         var npcTrail = document.querySelectorAll(elmClass);
-        console.log(npcTrail)
         if(npcTrail.length > 0) npcTrail[0].remove();
         const npc = document.createElement('div');
         npc.style.gridRowStart = NPCpos.x
@@ -121,5 +195,6 @@ export function updateNpc(){
     })
 }
 
-export function drawNpc(){
-}   
+
+
+//Randomly Teleport

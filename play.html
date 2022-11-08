@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Chaser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>     
+    <link rel="stylesheet" href="styles.css">
+    <!-- <script src="script.js" defer></script> -->
+    <link class="link" rel="icon" href="./media/blackLogo.png" type="image/icon type">
+    <script src="compute.js" defer type="module"></script>
+</head>
+<body>
+
+    <div class="logo">
+        <img src="./media/logo.png" id="game-logo">
+        <!-- <h2 style="writing-mode: vertical-lr;">
+            MAZE CHASER
+        </h2> -->
+    </div>
+
+    <audio loop src="./media/gameplay.mp3" class='audio' id="gameplayAudio"></audio>
+    <audio src="./media/caught.wav" class='audio' id="caught-one-audio"></audio>
+    <audio src="./media/caughtAll.wav" class='audio' id="caught-all-audio"></audio>
+    <audio src="./media/teleport.wav" class='audio' id="teleport-audio"></audio>
+    <button id="volume-btn"><i class="fa-solid fa-volume-xmark"></i></button>
+    <div id="maze-canvas"></div>
+    <div class="stopwatch"></div>
+
+    <dialog class="dialog hide" id="gameover-dialog">
+        <h1>GOOD JOB!</h1>
+        <h3>Your Time: <span class="time"></span></h3><br>  
+        <button id="playAgain"><a class="a-tag" href="/">Play Again</a></button>
+    </dialog>
+
+    <div class="game-controls">
+        <h2>Game Controls</h2>
+        <p>Arrow/WASD Keys to move</p>
+        <p>Space Bar to Teleport</p>
+        <p>Esc to Go Back</p>
+    </div>
+</body>
+</html>
