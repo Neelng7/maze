@@ -2,9 +2,10 @@ import { getInputDirection, collided } from "./userInput.js";
 import { wallPositions } from './walls.js'
 
 export const runnerSpeed = 10
+const mazeCanvas = document.getElementById("maze-canvas");
 const runnerPos = {x: 1, y: 1}
 const lastPos = {x: 1, y: 1}
-var rows = 21, columns = 21
+var rows = 21, columns = 21, deleteNpc = false;
 
 export function update(){
     lastPos.x = runnerPos.x;
@@ -18,6 +19,13 @@ export function update(){
         runnerPos.y = lastPos.y;
         collided();
     }else{
+        // if(wallPositionsX.includes(runnerPos.x) && wallPositionsY.includes(runnerPos.y)){
+        //     if(wallPositionsX.indexOf(runnerPos.x) == wallPositionsY.indexOf(runnerPos.y)){
+        //         runnerPos.x = lastPos.x;
+        //         runnerPos.y = lastPos.y;
+        //         collided();
+        //     }
+        // }
         wallPositions.forEach(wall => {
             if(runnerPos.x == wall.x && runnerPos.y == wall.y){
                 runnerPos.x = lastPos.x;
@@ -25,10 +33,11 @@ export function update(){
                 collided();
             }
         })
+
     }
 }
 
-export function draw(mazeCanvas){
+export function draw(){
     var runnerTrail = document.querySelectorAll(".runner");
     if(runnerTrail.length > 0) runnerTrail[0].remove();
     const runnerElm = document.createElement('div');
@@ -36,4 +45,22 @@ export function draw(mazeCanvas){
     runnerElm.style.gridColumnStart = runnerPos.y
     runnerElm.classList.add("runner");
     mazeCanvas.appendChild(runnerElm)
+}
+
+export function generatenpc(){
+    deleteNpc = false;
+    var randX = Math.floor(Math.random()*21), randY = Math.floor(Math.random()*21);
+    wallPositions.forEach(wall => {
+        if(randX == wall.x && randY == wall.y){
+            generatenpc();
+            deleteNpc = true;
+        }
+    })
+    if(!deleteNpc){
+        const npc = document.createElement('div');
+        npc.style.gridRowStart = randX;
+        npc.style.gridColumnStart = randY;
+        npc.classList.add("npc");
+        mazeCanvas.appendChild(npc)
+    }
 }

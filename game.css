@@ -16,13 +16,27 @@ body {
     grid-template-columns: repeat(21, 1fr);
     border: 2px solid white;
 }
-
 .runner{
     background-color: rgb(255, 255, 0);
     border: .25vmin solid black;
+    border-radius: 50%;
 }
-
+.npc{
+    background-color: rgb(255, 0, 212);
+    border: .25vmin solid black;
+    border-radius: 50%;
+}
 .wall{
     background-color: rgb(0, 8, 255);
     border: .25vmin solid black;
+}
+#volume-btn{
+    border: none;
+    background: none;
+    color: white;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
 }
