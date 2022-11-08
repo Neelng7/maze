@@ -3,7 +3,7 @@ import { wallPositions } from './walls.js'
 import { audio } from './compute.js'
 
 let gameMode = sessionStorage.getItem("gameMode")
-if(gameMode == null) window.location.href = "/";
+if(gameMode == null) window.location.href = "/maze-chaser/";
 export var modes = ['Easy', 'Medium', 'Hard'].indexOf(gameMode);
 var runnerSpeeds = [7, 10, 13];
 export const runnerSpeed = runnerSpeeds[modes];

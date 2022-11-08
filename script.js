@@ -21,7 +21,7 @@ function play(){
         return;
     }
     sessionStorage.setItem("gameMode", gamemodeSelect.value);
-    window.location.href = "/play.html";
+    window.location.href = "/maze-chaser/play";
 }
 
 window.addEventListener('keydown', key => {
