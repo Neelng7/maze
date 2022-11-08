@@ -7,6 +7,7 @@ export const audio = document.getElementById("gameplayAudio");
 const volumeBtn = document.getElementById("volume-btn");
 generateWalls(mazeCanvas);
 
+//constantly call functions to update data
 function main(currenTime){
     window.requestAnimationFrame(main);
     let secondsSinceLastRender = (currenTime - lastRender)/1000
@@ -17,6 +18,7 @@ function main(currenTime){
     // updateNpc();
 }
 
+//toggle background music
 volumeBtn.addEventListener('click', volumeToggle);
 function volumeToggle(){
     var iconClass = volumeBtn.children[0].classList    
@@ -26,13 +28,14 @@ function volumeToggle(){
     else audio.play();
 }
 
+//start all functions
 function start(){
     var NPCnumbers = [5, 7, 9];
     for(let i=1; i<NPCnumbers[modes]+1; i++) generatenpc(i);
     window.requestAnimationFrame(main);
 }
 
-//Modal Controls
+//Description Modal Controls
 const modalNext = document.getElementById("modal-next");
 const modalBack = document.getElementById("modal-back");
 const modalPlay = document.getElementById("modal-play");

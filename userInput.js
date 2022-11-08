@@ -5,6 +5,7 @@ const volumeBtn = document.getElementById("volume-btn");
 var inputDirection = { x: 0, y: 0 }
 var reset = false
 
+//All keyboard controls and shortcuts
 window.addEventListener('keydown', key => {
     switch(key.key){
         case 'ArrowUp':
@@ -46,10 +47,12 @@ window.addEventListener('keydown', key => {
     }
 })
 
+//if runner collides with a wall, speed = 0
 export function collided(){
     inputDirection = { x: 0, y: 0 }
 }
 
+//export speed direction to runner.js
 export function getInputDirection(){
     return inputDirection
 }

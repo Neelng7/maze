@@ -20,7 +20,6 @@ const timeSpan = document.querySelector("span.time");
 gameoverDialog.close();
 
 //Stopwatch
-// stopwatch();
 const StopwatchElm = document.querySelector(".stopwatch");
 var StopwatchMin = 0, StopwatchSec = 0, StopwatchMiliSec = 0;
 var StopWatchcount = 0, StopWatchDisplay, winTimes = [];
@@ -39,6 +38,7 @@ export function stopwatch(){
     }, 50)
 }
 
+//constantly update runner position with controls
 export function updateRunner(){
     lastPos.x = runnerPos.x;
     lastPos.y = runnerPos.y;
@@ -78,6 +78,7 @@ export function updateRunner(){
     })
 }
 
+//display updated controls
 export function drawRunner(){
     var runnerTrail = document.querySelectorAll(".runner");
     if(runnerTrail.length > 0) runnerTrail[0].remove();
@@ -90,7 +91,7 @@ export function drawRunner(){
 
 const teleportAudio = document.getElementById("teleport-audio");
 
-//Teleport User to Random place
+//Teleport User to Random place on pressing space bar
 export function teleportUser(){
     deleteUser = false;
     var randX = Math.floor(Math.random()*21), randY = Math.floor(Math.random()*21);
@@ -114,7 +115,7 @@ export function teleportUser(){
     }
 }
 
-
+//generate pink npc circles randomly around the map
 export function generatenpc(index){
     deleteNpc = false;
     var randX = Math.floor(1+Math.random()*20), randY = Math.floor(1+Math.random()*20);

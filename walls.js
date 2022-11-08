@@ -1,6 +1,6 @@
 export const wallPositions = []
-// export const wallPositionsX = [], wallPositionsY = [];
 
+//Randomly Generetare 150 wall
 export function generateWalls(mazeCanvas){
     mazeCanvas.innerHTML = ""
 
@@ -15,8 +15,6 @@ export function generateWalls(mazeCanvas){
         wall.style.gridColumnStart = randY;
         wall.classList.add("wall");
         mazeCanvas.appendChild(wall)
-        // wallPositionsX.push(wall.style.gridRowStart);
-        // wallPositionsY.push(wall.style.gridColumnStart);
         wallPositions.push({x: wall.style.gridRowStart, y: wall.style.gridColumnStart})
     }
 }
