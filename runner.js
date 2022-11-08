@@ -147,13 +147,16 @@ function gameOverState(){
     gameoverDialog.showModal();
     timeSpan.textContent = StopWatchDisplay;
     window.localStorage.setItem("bestTime", StopWatchcount)
+    document.querySelectorAll("audio").forEach(e => {
+        e.setAttribute("muted", true);
+    })
 }
 
 //Teleport NPCs to random positions every 15sec
 function teleportContainer(){
     var npcTeleportIntervalsArray = [11, 8, 5];
     var npcTeleportInterval = npcTeleportIntervalsArray[modes];
-    let npcTimer = setInterval(teleportNpc, npcTeleportInterval*1000);
+    globalThis.npcTimer = setInterval(teleportNpc, npcTeleportInterval*1000);
     function teleportNpc(){
         const NPCElms = document.querySelectorAll(".npc");
         NPCElms.forEach(e => e.remove());

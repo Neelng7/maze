@@ -38,7 +38,7 @@ window.addEventListener('keydown', key => {
             audio.pause();
             break;
         case "Escape":
-            window.location.href = '/';
+            window.location.href = '/maze-chaser/';
             break;
         default:
             reset = false
