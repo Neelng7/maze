@@ -20,15 +20,16 @@
         </h2> -->
     </div>
 
-    <audio loop src="./media/gameplay.mp3" class='audio' id="gameplayAudio"></audio>
+    <audio loop src="./media/gameplay.mp3" class='audio' id="gameplayAudio" autoplay></audio>
     <audio src="./media/caught.wav" class='audio' id="caught-one-audio"></audio>
     <audio src="./media/caughtAll.wav" class='audio' id="caught-all-audio"></audio>
     <audio src="./media/teleport.wav" class='audio' id="teleport-audio"></audio>
-    <button id="volume-btn"><i class="fa-solid fa-volume-xmark"></i></button>
+    <button id="volume-btn"><i class="fa-solid fa-volume-high"></i></button>
     <div id="maze-canvas"></div>
     <div class="stopwatch"></div>
+    <div class="best-time"></div>
 
-    <dialog class="dialog hide" id="gameover-dialog">
+    <dialog class="dialog" id="gameover-dialog">
         <h1>GOOD JOB!</h1>
         <h3>Your Time: <span class="time"></span></h3><br>  
         <button id="playAgain"><a class="a-tag" href="/maze-chaser/">Play Again</a></button>
@@ -36,9 +37,43 @@
 
     <div class="game-controls">
         <h2>Game Controls</h2>
-        <p>Arrow/WASD Keys to move</p>
         <p>Space Bar to Teleport</p>
+        <p>Arrow/WASD Keys to move</p>
+        <p>M to mute audio</p>
         <p>Esc to Go Back</p>
     </div>
+
+    <dialog id="gameDiscription-dialog" open>
+        <h2 class="view-description">MAZE CHASER</h2>
+        <div class="view1">
+            <p>Gaming has been the fascination of a large population for decades. Even before the creation of Video Games 
+                in 1962, outdoor sports and interactive board games were found to be extremely amusing and would relieve 
+                stresses for the people involved. This interest in games soon shifted from outdoor games to indoor excursions
+                on computerized systems which lead to online gaming as we see it today. But these games were not always the
+                way we see them. Years before they were completely computerized, these games were played in arcades and 
+                gaming centers on systems which were made especially for them. This time period essentially came to be
+                known as the retro gaming era. The apex of all retro games, is the Mighty Pac Man.<br><br>The big Yellow pie 
+                shaped man goes around a maze trying to eat as many dots as possible. Keeping Pac Man’s legacy in mind
+                and adding a few of our own changes, we present to you: The Maze Chaser. As players eat all pink balls,
+                they are judged on the time taken by them to do so. The player taking the least amount of time to eat 
+                all other balls, wins. Players may choose between 3 different, unique levels and play to reignite the 
+                excitement of playing on the Pac Man. Team horizon games thus wishes you all the very best and explicitly
+                tells you: Don’t trifle with a heavyweight. 
+            </p><br>
+            <button id="modal-next">Next</button>
+        </div>
+        <div class="view2 hide">
+            <h2>Game Controls</h2>
+            <p>Space Bar to Teleport</p>
+            <p>Arrow/WASD Keys to move</p>
+            <p>M to mute audio</p>
+            <p>Esc to Go Back</p><br>
+            <button id="modal-back">Back</button>
+            <button id="modal-play">Start Game</button>
+        </div><br>
+    </dialog>
+
+    <p class="co">&#169; Horizon Games</p>
+
 </body>
 </html>

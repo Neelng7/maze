@@ -103,9 +103,7 @@ main.home > *{
     border: 4px solid #00BAFF;
 }
 .dialog{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     flex-direction: column;
     color: white;
     background: black;
@@ -136,6 +134,50 @@ main.home > *{
     top: 20px;
     margin: auto;
     padding: 0;
+}
+#gameDiscription-dialog{
+    color: rgb(250,249,248);
+    background-color: black;
+}
+.view1{
+    text-align: justify;
+    padding: 15px;
+    width: 70ch;
+}
+.view2{
+    text-align: center;
+    width: 40ch;
+    padding: 25px;
+}
+.view-description{
+    text-align: center;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+#modal-next, #modal-back, #modal-play{
+    position: absolute;
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding-block: 3px;
+    padding-inline: 12px;
+    cursor: pointer;
+}
+#modal-next, #modal-play{
+    right: 30px;
+    bottom: 30px;
+}
+#modal-back{
+    left: 40px;
+    bottom: 30px;
+}
+#modal-next:hover, #modal-back:hover, #modal-play:hover{
+    background-color: rgb(17, 17, 17);
+}
+.co{
+    position: absolute;
+    left: 15px;
+    bottom: 5px;
 }
 .hide{
     display: none !important;

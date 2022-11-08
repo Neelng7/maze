@@ -5,7 +5,7 @@ import { audio } from './compute.js'
 let gameMode = sessionStorage.getItem("gameMode")
 if(gameMode == null) window.location.href = "/maze-chaser/";
 export var modes = ['Easy', 'Medium', 'Hard'].indexOf(gameMode);
-var runnerSpeeds = [7, 10, 13];
+var runnerSpeeds = [7, 10, 15];
 export const runnerSpeed = runnerSpeeds[modes];
 const mazeCanvas = document.getElementById("maze-canvas");
 const caughtOneAudio = document.getElementById("caught-one-audio");
@@ -20,20 +20,24 @@ const timeSpan = document.querySelector("span.time");
 gameoverDialog.close();
 
 //Stopwatch
+// stopwatch();
 const StopwatchElm = document.querySelector(".stopwatch");
 var StopwatchMin = 0, StopwatchSec = 0, StopwatchMiliSec = 0;
 var StopWatchcount = 0, StopWatchDisplay, winTimes = [];
-const stopWatchInterval = setInterval(() => { 
-    StopWatchcount += 5;
-    StopwatchMiliSec = StopWatchcount%100;
-    StopwatchSec = ((StopWatchcount - StopwatchMiliSec)/100)%60;
-    StopwatchMin = ((StopWatchcount - StopwatchSec*100 - StopwatchMiliSec)/6000);
-    StopwatchMiliSec = StopwatchMiliSec<10 ? "0"+StopwatchMiliSec : StopwatchMiliSec;
-    StopwatchSec = StopwatchSec<10 ? "0"+StopwatchSec : StopwatchSec;
-    StopwatchMin = StopwatchMin<10 ? "0"+StopwatchMin : StopwatchMin;
-    StopWatchDisplay = `${StopwatchMin}:${StopwatchSec}:${StopwatchMiliSec}`;
-    StopwatchElm.textContent = StopWatchDisplay;
-}, 50)
+StopwatchElm.textContent = "00:00:00";
+export function stopwatch(){
+    globalThis.stopWatchInterval = setInterval(() => { 
+        StopWatchcount += 5;
+        StopwatchMiliSec = StopWatchcount%100;
+        StopwatchSec = ((StopWatchcount - StopwatchMiliSec)/100)%60;
+        StopwatchMin = ((StopWatchcount - StopwatchSec*100 - StopwatchMiliSec)/6000);
+        StopwatchMiliSec = StopwatchMiliSec<10 ? "0"+StopwatchMiliSec : StopwatchMiliSec;
+        StopwatchSec = StopwatchSec<10 ? "0"+StopwatchSec : StopwatchSec;
+        StopwatchMin = StopwatchMin<10 ? "0"+StopwatchMin : StopwatchMin;
+        StopWatchDisplay = `${StopwatchMin}:${StopwatchSec}:${StopwatchMiliSec}`;
+        StopwatchElm.textContent = StopWatchDisplay;
+    }, 50)
+}
 
 export function updateRunner(){
     lastPos.x = runnerPos.x;
@@ -45,18 +49,7 @@ export function updateRunner(){
 
     if(npcCount == 0 && !gameOver){
         gameOver = true;
-        console.log("Game Over");
-        caughtAllAudio.play();
-        winTimes[0] = {min: StopwatchMin, sec: StopwatchSec, miliSec: StopwatchMiliSec};
-        console.log(winTimes);
-        // StopwatchMin = 0, StopwatchSec = 0, StopwatchMiliSec = 0, StopWatchcount = 0;
-        clearInterval(stopWatchInterval);
-        clearInterval(npcTimer);
-        collided();
-        audio.pause();
-        gameoverDialog.showModal();
-        gameoverDialog.classList.toggle("hide", false);
-        timeSpan.textContent = StopWatchDisplay;
+        gameOverState();
     }
 
     if(runnerPos.x < 0 || runnerPos.y < 0 || runnerPos.x > rows || runnerPos.y > columns){
@@ -141,17 +134,32 @@ export function generatenpc(index){
         AllNpcPos.push({x: randX, y: randY, id: `npc-${index}`});
         mazeCanvas.appendChild(npc)
     }
+    teleportContainer();
+}
+
+//GameOver
+function gameOverState(){
+    caughtAllAudio.play();
+    clearInterval(stopWatchInterval);
+    clearInterval(npcTimer);
+    collided();
+    audio.pause();
+    gameoverDialog.showModal();
+    timeSpan.textContent = StopWatchDisplay;
+    window.localStorage.setItem("bestTime", StopWatchcount)
 }
 
 //Teleport NPCs to random positions every 15sec
-var npcTeleportIntervalsArray = [11, 9, 7];
-var npcTeleportInterval = npcTeleportIntervalsArray[modes];
-let npcTimer = setInterval(teleportNpc, npcTeleportInterval*1000);
-function teleportNpc(){
-    const NPCElms = document.querySelectorAll(".npc");
-    NPCElms.forEach(e => e.remove());
-    for(let i=1; i<NPCElms.length+1; i++) generatenpc(i);
-    teleportAudio.play();
+function teleportContainer(){
+    var npcTeleportIntervalsArray = [11, 8, 5];
+    var npcTeleportInterval = npcTeleportIntervalsArray[modes];
+    let npcTimer = setInterval(teleportNpc, npcTeleportInterval*1000);
+    function teleportNpc(){
+        const NPCElms = document.querySelectorAll(".npc");
+        NPCElms.forEach(e => e.remove());
+        for(let i=1; i<NPCElms.length+1; i++) generatenpc(i);
+        teleportAudio.play();
+    }
 }
 
 //Randomly Move Npcs Around
@@ -194,7 +202,3 @@ export function updateNpc(){
         mazeCanvas.appendChild(npc)
     })
 }
-
-
-
-//Randomly Teleport
