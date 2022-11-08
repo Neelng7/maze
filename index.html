@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maze Runner</title>
-    <!-- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js" defer></script> -->
+    <title>Maze Chase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>     
     <link rel="stylesheet" href="game.css">
     <!-- <script src="script.js" defer></script> -->
+    <link class="link" rel="icon" href="./media/blackLogo.png" type="image/icon type">
     <script src="compute.js" defer type="module"></script>
 </head>
 <body>
-    <audio loop src="./media/gameplay.mp3" class='audio' autoplay></audio>
-    <button id="volume-btn"><i class="fa-solid fa-volume-high"></i></button>
+    <audio loop src="./media/gameplay.mp3" class='audio' id="gameplayAudio"></audio>
+    <audio src="./media/caught.wav" class='audio' id="caught-one-audio"></audio>
+    <audio src="./media/caughtAll.wav" class='audio' id="caught-all-audio"></audio>
+    <button id="volume-btn"><i class="fa-solid fa-volume-xmark"></i></button>
     <div id="maze-canvas"></div>
 </body>
 </html>

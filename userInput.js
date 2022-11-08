@@ -1,3 +1,5 @@
+const audio = document.getElementById("gameplayAudio");
+const volumeBtn = document.getElementById("volume-btn");
 var inputDirection = { x: 0, y: 0 }
 var reset = false
 
@@ -23,8 +25,14 @@ window.addEventListener('keydown', key => {
         case "D":
             inputDirection = { x: 1, y: 0 }
             break;
+        case "m":
+        case "M":
+            var iconClass = volumeBtn.children[0].classList    
+            iconClass.toggle("fa-volume-high", false);
+            iconClass.toggle("fa-volume-xmark", true);
+            audio.pause();
         default:
-            inputDirection = { x: 0, y: 0 }
+            // inputDirection = { x: 0, y: 0 }
             reset = false
             break;  
     }
