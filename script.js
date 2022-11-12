@@ -36,7 +36,8 @@ function play(){
 
 window.addEventListener('keydown', key => {
     if(key.key == "Enter") play();
-    else if(key.key == "m" || key.key == "M"){
+    if(document.activeElement == userName) return;
+    if(key.key == "m" || key.key == "M"){
         var iconClass = volumeBtn.children[0].classList    
         iconClass.toggle("fa-volume-high", false);
         iconClass.toggle("fa-volume-xmark", true);
